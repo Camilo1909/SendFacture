@@ -64,7 +64,7 @@ def send_invoice(request):
             )
             invoice.save()
             messages.success(request, "Factura enviada exitosamente.")
-            redirect("sendInvoice")
+            return redirect("sendInvoice")
         else:
             print(form.errors)
     else:
