@@ -249,13 +249,11 @@ WHATSAPP_API_TOKEN=your-whatsapp-token
 WHATSAPP_PHONE_ID=your-phone-id
 ```
 
-Ver `.env.example` para todas las variables disponibles.
-
 ### Base de Datos
 
-**Desarrollo (SQLite):**
+**Desarrollo (PostgreSQL):**
 ```python
-# Por defecto usa SQLite en desarrollo
+# Configurar variables DB_* en .env
 ```
 
 **Producción (PostgreSQL):**
@@ -361,8 +359,6 @@ cd /opt/sendinvoice
 docker-compose pull
 docker-compose up -d
 ```
-
-Ver [DEPLOYMENT.md](docs/DEPLOYMENT.md) para guía detallada.
 
 ## 🔄 CI/CD
 
