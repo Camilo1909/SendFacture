@@ -2,7 +2,7 @@
 
 > Sistema de gestión y envío de comprobantes electrónicos construido con Django
 
-[![CI Status](https://github.com/Camilo1909/SendInvoice/workflows/CI/badge.svg)](https://github.com/Camilo1909/SendInvoice/actions)
+[![CI Status](https://github.com/Camilo1909/SendInvoice/workflows/ci/badge.svg)](https://github.com/Camilo1909/SendInvoice/actions)
 [![Docker Build](https://github.com/Camilo1909/SendInvoice/workflows/Docker%20Build%20and%20Push/badge.svg)](https://github.com/Camilo1909/SendInvoice/actions)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![Django Version](https://img.shields.io/badge/django-5.2.7-green.svg)](https://www.djangoproject.com/)
