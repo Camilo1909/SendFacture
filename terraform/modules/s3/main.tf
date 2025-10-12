@@ -1,5 +1,5 @@
 # ============================================
-# MÓDULO S3 - SendInvoice (Free Tier Ready)
+# MÓDULO S3 - SendInvoice
 # Buckets para static y media files
 # ============================================
 
@@ -105,7 +105,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "media" {
   }
 }
 
-# CORS para media (solo tu dominio)
+# CORS para media
 resource "aws_s3_bucket_cors_configuration" "media" {
   bucket = aws_s3_bucket.media.id
 

@@ -39,10 +39,6 @@ variable "vpc_cidr" {
   description = "CIDR block para la VPC"
   type        = string
   default     = "10.0.0.0/16"
-
-  # ¿Qué es CIDR? Rango de IPs
-  # 10.0.0.0/16 = IPs desde 10.0.0.0 hasta 10.0.255.255
-  # /16 = 65,536 IPs disponibles
 }
 
 # Tipo de instancia EC2
@@ -76,7 +72,7 @@ variable "db_username" {
 variable "db_password" {
   description = "Contraseña de la base de datos"
   type        = string
-  sensitive   = true # ← CRÍTICO: No se muestra
+  sensitive   = true 
 
   validation {
     condition     = length(var.db_password) >= 16
@@ -84,15 +80,14 @@ variable "db_password" {
   }
 }
 
-# Tu IP pública (para SSH)
+# IP pública (para SSH)
 variable "my_ip" {
   description = "Tu IP pública para acceso SSH"
   type        = string
 
-  # Obtenla con: curl ifconfig.me
 }
 
-# SSH Key Name (la crearemos después)
+# SSH Key Name
 variable "ssh_key_name" {
   description = "Nombre de la llave SSH en AWS"
   type        = string

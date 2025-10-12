@@ -4,7 +4,7 @@ Health Check endpoint para Docker y AWS ELB/ALB
 Este endpoint verifica:
 1. Django está corriendo
 2. Base de datos accesible
-3. (Opcional) Otros servicios críticos
+3. Otros servicios críticos
 
 Docker HEALTHCHECK lo usa para verificar el contenedor
 """
@@ -19,7 +19,7 @@ from django.views.decorators.http import require_GET
 logger = logging.getLogger(__name__)
 
 
-@csrf_exempt  # Health checks no necesitan CSRF
+@csrf_exempt
 @require_GET
 def health_check(request):
     """
@@ -47,10 +47,6 @@ def health_check(request):
 @csrf_exempt
 @require_GET
 def readiness_check(request):
-    """
-    Readiness check (listo para recibir tráfico)
-    Más estricto que health_check
-    """
     checks = {"status": "ready", "checks": {}}
 
     # Check 1: Base de datos
@@ -84,8 +80,4 @@ def readiness_check(request):
 @csrf_exempt
 @require_GET
 def liveness_check(request):
-    """
-    Liveness check (proceso está vivo)
-    Kubernetes lo usa para decidir si reiniciar el pod
-    """
     return JsonResponse({"status": "alive"}, status=200)

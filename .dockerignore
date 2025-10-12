@@ -1,7 +1,3 @@
-# ============================================
-# Evita copiar archivos innecesarios a la imagen
-# ============================================
-
 # Python runtime
 __pycache__/
 *.py[cod]
@@ -60,6 +56,6 @@ docker-compose.yml
 Thumbs.db
 desktop.ini
 
-# OneDrive (para evitar archivos temporales)
+# OneDrive
 ~$*
 *.tmp

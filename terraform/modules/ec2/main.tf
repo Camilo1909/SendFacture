@@ -9,7 +9,7 @@ resource "aws_security_group" "ec2" {
   description = "Security group para instancia EC2 con Django"
   vpc_id      = var.vpc_id
 
-  # Inbound Rules (entrada)
+  # Inbound Rules
   
   # HTTP (80) desde cualquier lugar
   ingress {
@@ -29,7 +29,7 @@ resource "aws_security_group" "ec2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # SSH (22) solo desde TU IP
+  # SSH (22) solo desde Mi IP
   ingress {
     description = "SSH from my IP"
     from_port   = 22
@@ -38,7 +38,7 @@ resource "aws_security_group" "ec2" {
     cidr_blocks = [var.my_ip]
   }
 
-  # Outbound Rules (salida) - permite TODO
+  # Outbound Rules
   egress {
     description = "Allow all outbound"
     from_port   = 0
@@ -52,7 +52,7 @@ resource "aws_security_group" "ec2" {
   }
 }
 
-# Obtener la AMI de Ubuntu más reciente
+# AMI de Ubuntu más reciente
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]  # Canonical (Ubuntu)
@@ -92,10 +92,10 @@ resource "aws_instance" "web" {
     encrypted             = true
   }
 
-  # Metadata options (seguridad)
+  # Metadata options
   metadata_options {
     http_endpoint               = "enabled"
-    http_tokens                 = "required"  # IMDSv2 (más seguro)
+    http_tokens                 = "required"  # IMDSv2 
     http_put_response_hop_limit = 1
   }
 

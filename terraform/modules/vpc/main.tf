@@ -6,7 +6,7 @@
 # Crear la VPC
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true # ← Permite DNS interno (importante para RDS)
+  enable_dns_hostnames = true # ← Permite DNS interno
   enable_dns_support   = true
 
   tags = {
@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Internet Gateway (puerta de salida a Internet)
+# Internet Gateway
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
@@ -25,7 +25,7 @@ resource "aws_internet_gateway" "main" {
 
 # Subnet Pública (para EC2)
 resource "aws_subnet" "public" {
-  count = 2 # ← Creamos 2 subnets (high availability)
+  count = 2 # ← 2 subnets (high availability)
 
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index)

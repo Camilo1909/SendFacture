@@ -1,7 +1,3 @@
-"""
-Configuración global de pytest para SendInvoice
-"""
-
 import os
 
 import django
@@ -18,7 +14,6 @@ def pytest_configure(config):
     # Forzar configuración de test ANTES de django.setup()
     from django.conf import settings as django_settings
 
-    # Configurar BD para tests con TODOS los parámetros necesarios
     django_settings.DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -35,7 +30,7 @@ def pytest_configure(config):
         }
     }
 
-    # Deshabilitar migraciones complejas para tests (más rápido)
+    # Deshabilitar migraciones complejas para tests
     # django_settings.MIGRATION_MODULES = {
     #     app: None for app in django_settings.INSTALLED_APPS
     # }

@@ -1,8 +1,3 @@
-# ============================================
-# OUTPUTS del módulo S3
-# Otros módulos usan estos valores
-# ============================================
-
 output "static_bucket_name" {
   description = "Nombre del bucket de static files"
   value       = aws_s3_bucket.static.id
@@ -16,7 +11,6 @@ output "static_bucket_arn" {
 output "static_bucket_domain" {
   description = "URL del bucket static"
   value       = aws_s3_bucket.static.bucket_regional_domain_name
-  # Ejemplo: sendinvoice-static-prod.s3.us-east-1.amazonaws.com
 }
 
 output "media_bucket_name" {

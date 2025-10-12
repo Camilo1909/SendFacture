@@ -75,7 +75,6 @@ INSTALLED_APPS += AWS_APPS
 # ============================================
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # Whitenoise: Sirve archivos estáticos en producción
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -181,31 +180,20 @@ if USE_S3:
     AWS_STORAGE_BUCKET_NAME_MEDIA = config("AWS_STORAGE_BUCKET_NAME_MEDIA")
     AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-1")
 
-    # AWS_ACCESS_KEY_ID: Usuario que puede escribir en S3
-    # AWS_SECRET_ACCESS_KEY: Contraseña de ese usuario
-    # AWS_STORAGE_BUCKET_NAME_STATIC: Nombre del bucket para CSS/JS
-    # AWS_STORAGE_BUCKET_NAME_MEDIA: Nombre del bucket para facturas/logos
-    # AWS_S3_REGION_NAME: Región donde están los buckets
-
-    # ========================================
-    # S3 Settings (optimización)
-    # ========================================
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME_STATIC}.s3.amazonaws.com"
-    # URL base: sendinvoice-static-prod.s3.amazonaws.com
 
     AWS_DEFAULT_ACL = None
     AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-    # Navegadores cachean archivos estáticos (más rápido)
+    # Navegadores cachean archivos estáticos
     AWS_S3_FILE_OVERWRITE = False
     # False = No sobrescribir archivos con mismo nombre
     # Django agrega hash al nombre si ya existe
     AWS_S3_REGION_NAME = "us-east-1"
     AWS_QUERYSTRING_AUTH = False  # No agrega tokens temporales a URLs
 
-    # ✅ Nueva configuración obligatoria para buckets sin ACLs
     AWS_S3_BUCKET_ACL = None
     AWS_S3_BUCKET_AUTHENTICATED_READ = False
-    AWS_S3_ADDRESSING_STYLE = "virtual"  # usa dominio tipo bucket.s3.amazonaws.com
+    AWS_S3_ADDRESSING_STYLE = "virtual"
     AWS_S3_SIGNATURE_VERSION = "s3v4"
 
     # ========================================
@@ -213,14 +201,12 @@ if USE_S3:
     # ========================================
     STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-    # URL final: https://sendinvoice-static-prod.s3.amazonaws.com/static/styles.css
 
     # ========================================
     # Media Files en S3
     # ========================================
     DEFAULT_FILE_STORAGE = "core.storage_backends.MediaStorage"
     MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME_MEDIA}.s3.amazonaws.com/media/"
-    # URL final: https://sendinvoice-media-prod.s3.amazonaws.com/media/logo.png
 
 else:
     # ========================================
@@ -281,7 +267,7 @@ MESSAGE_TAGS = {
     messages.INFO: "info",
     messages.SUCCESS: "success",
     messages.WARNING: "warning",
-    messages.ERROR: "danger",  # ← este es el importante
+    messages.ERROR: "danger",
 }
 
 

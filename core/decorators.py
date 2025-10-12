@@ -10,10 +10,6 @@ from modules.auths.models import Account
 
 
 def role_required(*role_names):
-    """
-    Decorador que verifica si el usuario tiene alguno de los roles especificados
-    Uso: @role_required('Owner', 'Admin')
-    """
 
     def decorator(view_func):
         @wraps(view_func)
@@ -44,10 +40,6 @@ def role_required(*role_names):
 
 
 def owner_required(view_func):
-    """
-    Decorador específico para Owner
-    Uso: @owner_required
-    """
 
     @wraps(view_func)
     @login_required
@@ -71,10 +63,6 @@ def owner_required(view_func):
 
 
 def company_required(view_func):
-    """
-    Decorador que verifica que el usuario tenga compañía asignada
-    Uso: @company_required
-    """
 
     @wraps(view_func)
     @login_required
@@ -101,10 +89,6 @@ def company_required(view_func):
 
 
 def owner_or_role_required(*role_names):
-    """
-    Decorador que permite acceso a Owners o usuarios con roles específicos
-    Uso: @owner_or_role_required('Admin', 'Manager')
-    """
 
     def decorator(view_func):
         @wraps(view_func)
@@ -140,10 +124,6 @@ def owner_or_role_required(*role_names):
 
 
 def superuser_required(view_func):
-    """
-    Decorador específico para superusuarios
-    Uso: @superuser_required
-    """
 
     @wraps(view_func)
     @login_required

@@ -9,7 +9,6 @@ networks:
   sendinvoice-network:
     driver: bridge
     # Bridge: Crea red privada entre contenedores
-    # Los contenedores pueden comunicarse por nombre
 
 # ============================================
 # VOLUMES: Almacenamiento persistente
@@ -33,12 +32,10 @@ services:
   # ------------------------------------------
   db:
     image: postgres:17-alpine
-    # Alpine: Versión minimalista (40MB vs 300MB)
     
     container_name: sendinvoice_postgres
     
     restart: unless-stopped
-    # Política de reinicio:
     # unless-stopped: Reinicia siempre, excepto si lo detienes manualmente
     
     volumes:
@@ -46,15 +43,13 @@ services:
       # Monta volumen persistente en directorio de datos de Postgres
       
       - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql:ro
-      # (Opcional) Script SQL que corre al crear la BD
+      # Script SQL que corre al crear la BD
       # :ro = read-only
     
     environment:
-      # Variables de PostgreSQL
       POSTGRES_DB: ${DB_NAME:-sendinvoice_db}
       # Sintaxis ${VAR:-default}:
       # - Intenta leer DB_NAME del .env
-      # - Si no existe, usa "sendinvoice_db"
       
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
@@ -63,12 +58,11 @@ services:
       # Codificación UTF-8 para soportar caracteres especiales
       
       PGDATA: /var/lib/postgresql/data/pgdata
-      # Subdirectorio para datos (mejor organización)
+      # Subdirectorio para datos
     
     ports:
       - "${DB_PORT:-5432}:5432"
       # Mapeo: puerto_host:puerto_contenedor
-      # Permite conectar pgAdmin desde Windows a localhost:5432
     
     networks:
       - sendinvoice-network
@@ -96,13 +90,11 @@ services:
   web:
     build:
       context: .
-      # Contexto: directorio raíz del proyecto
       
       dockerfile: Dockerfile
       
       target: builder
       # En desarrollo, usamos stage "builder"
-      # Tiene más herramientas (útil para pip install on-the-fly)
       
       args:
         DJANGO_ENV: development
@@ -123,7 +115,7 @@ services:
       # Hot reload: Cambios en archivos se reflejan inmediatamente
       
       - /app/venv
-      # Excluir venv del volumen (evita conflictos)
+      # Excluir venv del volumen
       
       - /app/__pycache__
       # Excluir cache de Python
@@ -133,18 +125,14 @@ services:
     
     ports:
       - "${WEB_PORT:-8000}:8000"
-      # Accede a Django en http://localhost:8000
     
     env_file:
       - .env.docker
-      # ← ESPECIFICADO: Usa .env.docker en lugar de .env por defecto
     
     environment:
-      # Variables adicionales (sobrescriben .env si hay duplicados)
       DJANGO_SETTINGS_MODULE: core.settings
       
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-sendinvoice_db}
-      # Nota importante: Usamos "db" (nombre del servicio), NO "localhost"
       # Docker DNS resuelve "db" a la IP del contenedor postgres
       
       REDIS_URL: redis://redis:6379/0
@@ -164,10 +152,8 @@ services:
       - sendinvoice-network
     
     stdin_open: true
-    # Permite input interactivo (útil para ipdb debugger)
     
     tty: true
-    # Habilita pseudo-TTY (necesario para ipdb)
     
     logging:
       driver: "json-file"
@@ -180,7 +166,6 @@ services:
   # ------------------------------------------
   redis:
     image: redis:7-alpine
-    # Redis Alpine: Solo 8MB
     
     container_name: sendinvoice_redis
     
@@ -191,7 +176,6 @@ services:
     
     volumes:
       - redis_data:/data
-      # Persiste cache (opcional, depende de tu uso)
     
     command: redis-server --appendonly yes
     # --appendonly yes: Persistencia de datos (AOF)
@@ -231,7 +215,6 @@ services:
     
     ports:
       - "${PGADMIN_PORT:-5050}:80"
-      # Accede a pgAdmin en http://localhost:5050
     
     volumes:
       - pgadmin_data:/var/lib/pgadmin

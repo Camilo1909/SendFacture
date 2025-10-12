@@ -2,7 +2,7 @@
 # MÓDULO RDS - PostgreSQL para SendInvoice
 # ============================================
 
-# DB Subnet Group (define dónde puede correr RDS)
+# DB Subnet Group
 resource "aws_db_subnet_group" "main" {
   name       = "${var.project_name}-db-subnet-group-${var.environment}"
   subnet_ids = var.private_subnet_ids
@@ -88,9 +88,6 @@ resource "aws_db_instance" "postgres" {
 
   # Configuración
   parameter_group_name = aws_db_parameter_group.postgres.name
-  
-  # Performance Insights (opcional, 7 días gratis)
-  # enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   
   # Multi-AZ (false para Free Tier)
   multi_az = false

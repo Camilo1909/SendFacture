@@ -1,7 +1,3 @@
-# ============================================
-# VARIABLES DEL MÓDULO VPC
-# ============================================
-
 variable "vpc_cidr" {
   description = "CIDR block de la VPC"
   type        = string

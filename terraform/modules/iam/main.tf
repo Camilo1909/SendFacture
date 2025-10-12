@@ -9,7 +9,7 @@
 resource "aws_iam_role" "ec2_s3_role" {
   name = "${var.project_name}-ec2-s3-role-${var.environment}"
   
-  # Política de confianza (quién puede asumir este rol)
+  # Política de confianza
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -23,7 +23,6 @@ resource "aws_iam_role" "ec2_s3_role" {
     ]
   })
   
-  # Esta política dice:
   # "Las instancias EC2 pueden asumir este rol"
   
   tags = {
@@ -89,8 +88,4 @@ resource "aws_iam_role_policy_attachment" "ec2_s3_policy" {
 resource "aws_iam_instance_profile" "ec2_profile" {
   name = "${var.project_name}-ec2-profile-${var.environment}"
   role = aws_iam_role.ec2_s3_role.name
-  
-  # ¿Qué es Instance Profile?
-  # Es el "pegamento" entre el IAM Role y la instancia EC2
-  # EC2 solo entiende "profiles", no "roles" directamente
 }

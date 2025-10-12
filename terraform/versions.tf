@@ -9,13 +9,11 @@ terraform {
   # Providers requeridos
   required_providers {
     aws = {
-      source  = "hashicorp/aws" # ← Proveedor oficial de AWS
-      version = "~> 5.0"        # ← Versión 5.x (última estable)
+      source  = "hashicorp/aws"
+      version = "~> 5.0"  
     }
   }
 
-  # Backend para guardar el estado (por ahora local)
-  # Después lo cambiaremos a S3
   backend "local" {
     path = "terraform.tfstate"
   }
@@ -23,7 +21,7 @@ terraform {
 
 # Configuración del provider AWS
 provider "aws" {
-  region = var.aws_region # ← Lee de variables.tf
+  region = var.aws_region 
 
   # Tags por defecto para TODOS los recursos
   default_tags {

@@ -42,7 +42,6 @@ module "s3" {
   domain_name  = var.domain_name
 }
 
-# NUEVO: Módulo IAM
 module "iam" {
   source = "./modules/iam"
 

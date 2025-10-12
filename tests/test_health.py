@@ -1,7 +1,3 @@
-"""
-Tests para health check endpoints
-"""
-
 from django.test import Client
 from django.urls import reverse
 
@@ -10,7 +6,6 @@ import pytest
 
 @pytest.mark.django_db
 class TestHealthCheck:
-    """Tests para endpoints de salud"""
 
     def test_health_check_returns_200(self):
         """Health check debe retornar 200 OK"""
