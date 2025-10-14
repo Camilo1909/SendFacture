@@ -429,11 +429,6 @@ SendInvoice/
 └── README.md
 ```
 
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
 ## 📞 Contacto
 
 **Camilo** - [Linkedin](https://www.linkedin.com/in/juan-camilo-vargas-cordoba/)
