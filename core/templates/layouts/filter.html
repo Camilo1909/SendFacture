@@ -1,0 +1,8 @@
+<form id="filterForm" name="filterForm" class="g-3" method="post">
+    {% csrf_token %}
+
+    <input type="hidden" name="form" id="id_form" value="filter">
+    <input type="hidden" name="page" id="id_page" value="{{page_obj.page_number}}">
+    {% block filterform %}
+    {% endblock %}
+</form>

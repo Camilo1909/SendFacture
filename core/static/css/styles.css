@@ -185,6 +185,12 @@ body {
     transition: background 0.3s;
 }
 
+.btn-filter{
+    background-color: white;
+    border: #000000 1px;
+    transition: background 0.3s;
+}
+
 .btn-txt{
     color: white;
 }

@@ -1,0 +1,20 @@
+{% extends "layouts/filter.html" %}
+
+{% block filterform %}
+<div class="row mb-3">
+    <div class="col-md-6">
+        {{ filter_form.search.label_tag }}
+        {{ filter_form.search }}
+    </div>
+
+    <div class="col-md-6 d-flex justify-content-start gap-2">
+        <button type="submit" class="btn btn-primary mt-4 text-white">
+            <i class="bi bi-funnel-fill btn-txt"></i> Filtrar
+        </button>
+
+        <a href="{% url 'invoice_list' %}" class="btn btn-filter mt-4">
+            <i class="bi bi-x-circle"></i> Limpiar
+        </a>
+    </div>
+</div>
+{% endblock %}

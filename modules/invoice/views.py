@@ -7,7 +7,7 @@ from modules.auths.models import Account
 from modules.base.models import Client
 from modules.services.models import WhatsAppService
 
-from .forms import InvoiceForm, SendInvoiceForm
+from .forms import FilterInvoiceForm, InvoiceForm, SendInvoiceForm
 from .models import Invoice
 
 # Create your views here.
@@ -15,11 +15,20 @@ from .models import Invoice
 
 @owner_or_role_required("Admin")
 def invoice_list(request):
+    data = {}
     invoices = Invoice.objects.all()
+    if request.method == "POST":
+        filter_form = FilterInvoiceForm(request.POST)
+        if filter_form.is_valid():
+            search = filter_form.cleaned_data["search"]
+            if search:
+                data["search"] = search
+                invoices = invoices.filter(code__icontains=search)
     paginator = Paginator(invoices, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, "invoice_list.html", {"page_obj": page_obj})
+    filter_form = FilterInvoiceForm(initial=data)
+    return render(request, "invoice_list.html", {"page_obj": page_obj, "filter_form": filter_form})
 
 
 @owner_or_role_required("Admin")
