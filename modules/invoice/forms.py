@@ -2,8 +2,9 @@ from django import forms
 
 from .models import Invoice, TypeInvoice
 
+
 class FilterInvoiceForm(forms.Form):
-    search  = forms.CharField(
+    search = forms.CharField(
         required=False,
         label="Buscar factura",
         widget=forms.TextInput(attrs={"class": "form-control text-start"}),
